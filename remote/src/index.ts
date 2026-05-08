@@ -3,11 +3,14 @@
 // With @module-federation/vite >= 1.15.0, this triggers:
 //   "Error: [Module Federation] Shared module vue3-gettext was imported before
 //    federation bootstrap finished."
+import { defineComponent, h } from 'vue'
 import { useGettext } from 'vue3-gettext'
 
-export default {
+export default defineComponent({
+  name: 'RemoteComponent',
   setup() {
     const { $gettext } = useGettext()
-    return { greeting: $gettext('Hello from extension!') }
+    const greeting = $gettext('Hello from remote!')
+    return () => h('div', greeting)
   }
-}
+})
